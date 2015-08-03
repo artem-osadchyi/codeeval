@@ -1,32 +1,46 @@
-package org.insane.codeeval;
+package org.insane.codeeval.easy;
 
-import java.util.Arrays;
-
-/** Sum of Primes https://www.codeeval.com/open_challenges/4/ */
-public class SumOfPrimes {
+/** Prime Palindrome https://www.codeeval.com/open_challenges/3/ */
+public class PrimePalindrome {
     public static final int FIRST_PRIME = 2;
-    public static final int COUNT = 1000;
+    public static final int MAX_NUMBER = 1000;
 
     public static void main(String[] args) {
-        System.out.println(sumOfPrimes(COUNT));
+        System.out.println(getMaxPrimePalindrome(MAX_NUMBER));
     }
 
-    public static int sumOfPrimes(int count) {
-        return sum(getFirstPrimes(count));
+    public static int getMaxPrimePalindrome(int max) {
+        int[] primes = primes(max);
+
+        for (int i = primes.length - 1; i >= 0; i--)
+            if (isPalindrome(primes[i]))
+                return primes[i];
+
+        return FIRST_PRIME;
     }
 
-    public static int getEstimation(int count) {
-        double countLog = Math.log(count);
-        return (int) (count * (countLog + Math.log(countLog)));
+    public static boolean isPalindrome(int number) {
+        int[] digits = getDigits(number);
+
+        for (int i = 0, j = digits.length - 1; i < digits.length / 2; i++, j--)
+            if (digits[i] != digits[j])
+                return false;
+
+        return true;
     }
 
-    public static int[] getFirstPrimes(int count) {
-        int[] primes = getPrimesLower(getEstimation(count));
+    public static int[] getDigits(int number) {
+        String numberStr = Integer.toString(number);
+        char[] characters = numberStr.toCharArray();
+        int[] result = new int[numberStr.length()];
 
-        return Arrays.copyOfRange(primes, 0, count);
+        for (int i = 0; i < result.length; i++)
+            result[i] = Character.getNumericValue(characters[i]);
+
+        return result;
     }
 
-    public static int[] getPrimesLower(int max) {
+    public static int[] primes(int max) {
         boolean[] primes = fill(max - 1, true);
 
         // for (int number = FIRST_PRIME; number < max; number++) {
@@ -62,15 +76,6 @@ public class SumOfPrimes {
         for (boolean item : array)
             if (item == value)
                 ++result;
-
-        return result;
-    }
-
-    public static int sum(int[] array) {
-        int result = 0;
-
-        for (int item : array)
-            result += item;
 
         return result;
     }

@@ -1,4 +1,4 @@
-package org.insane.codeeval;
+package org.insane.codeeval.easy;
 
 /** Multiplication Tables https://www.codeeval.com/open_challenges/23/ */
 public class MultiplicationTables {

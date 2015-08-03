@@ -1,4 +1,4 @@
-package org.insane.codeeval;
+package org.insane.codeeval.hard;
 
 import java.io.File;
 import java.io.FileNotFoundException;
